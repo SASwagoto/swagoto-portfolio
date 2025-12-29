@@ -20,17 +20,21 @@ export default function Contact() {
   const [mailStep, setMailStep] = useState(0); 
   const [formData, setFormData] = useState({ name: "", email: "", message: "" });
   const [isFocused, setIsFocused] = useState(false);
-  const [isMounted, setIsMounted] = useState(false); // ইনপুট ডিলে করার জন্য
+  const [isMounted, setIsMounted] = useState(false);
   
   const scrollRef = useRef(null);
   const inputRef = useRef(null);
 
   useEffect(() => {
+    // ১. রিফ্রেশ দিলে ব্রাউজারের অটো-স্ক্রল মেমোরি বন্ধ করা
     if ('scrollRestoration' in window.history) {
       window.history.scrollRestoration = 'manual';
     }
-    window.scrollTo(0, 0);
+    
+    // ২. পেজ লোড হওয়ার সময় একদম উপরে রাখা
+    window.scrollTo({ top: 0, left: 0, behavior: 'instant' });
 
+    // ৩. ১.৫ সেকেন্ড পর ইনপুট মাউন্ট করা যাতে ব্রাউজার ফোকাস খুঁজে না পায়
     const timer = setTimeout(() => {
       setIsMounted(true);
     }, 1500);
@@ -103,12 +107,12 @@ export default function Contact() {
   };
 
   return (
-    <section className="relative bg-[#050505] py-24 px-6 min-h-[80vh] flex flex-col justify-center border-t border-white/5">
+    <section className="relative bg-[#050505] py-24 px-6 min-h-[80vh] flex flex-col justify-center border-t border-white/5 overflow-hidden">
       <div className="max-w-6xl mx-auto w-full">
         {/* Header Section */}
         <div className="mb-12 space-y-1 relative group text-center md:text-left">
           <h2 className="absolute -top-10 left-1/2 -translate-x-1/2 w-full text-7xl md:text-[140px] font-black text-white/[0.01] pointer-events-none select-none uppercase">CONNECT</h2>
-          <div className="relative z-10">
+          <div className="relative z-10 text-center md:text-left">
             <h4 className="text-white/30 font-mono text-xs tracking-[10px] uppercase">Transmission // 04</h4>
             <h2 className="bg-clip-text text-transparent bg-gradient-to-r from-white via-white to-white/40 font-black text-3xl md:text-6xl uppercase tracking-widest leading-none">INITIATE HANDSHAKE</h2>
           </div>
@@ -116,11 +120,15 @@ export default function Contact() {
 
         {/* Terminal Window */}
         <div 
-          onClick={() => inputRef.current?.focus()} 
+          onClick={() => inputRef.current?.focus({ preventScroll: true })} 
           className="max-w-4xl mx-auto w-full bg-black border border-white/10 rounded-sm shadow-2xl flex flex-col h-[400px] md:h-[450px] cursor-text overflow-hidden"
         >
-          <div className="bg-white/5 px-4 py-2 border-b border-white/10 flex items-center justify-between font-mono text-[9px] text-white/30 uppercase">
-            <div className="flex gap-2"><div className="w-2.5 h-2.5 rounded-full bg-red-500/20" /><div className="w-2.5 h-2.5 rounded-full bg-yellow-500/20" /><div className="w-2.5 h-2.5 rounded-full bg-green-500/20" /></div>
+          <div className="bg-white/5 px-4 py-2 border-b border-white/10 flex items-center justify-between font-mono text-[9px] text-white/30 uppercase tracking-widest">
+            <div className="flex gap-2">
+              <div className="w-2.5 h-2.5 rounded-full bg-red-500/20" />
+              <div className="w-2.5 h-2.5 rounded-full bg-yellow-500/20" />
+              <div className="w-2.5 h-2.5 rounded-full bg-green-500/20" />
+            </div>
             <span>ROOT@SHAWON_CORE</span>
           </div>
 
@@ -139,15 +147,20 @@ export default function Contact() {
                   <input
                     ref={inputRef}
                     type="text"
+                    // readOnly লজিক অটো-স্ক্রল ঠেকাতে সাহায্য করে
+                    readOnly={!isFocused}
                     className="bg-transparent border-none outline-none text-white font-mono w-full caret-transparent"
                     value={input}
                     onChange={(e) => setInput(e.target.value)}
                     onKeyDown={handleCommand}
-                    onFocus={() => setIsFocused(true)}
+                    onFocus={(e) => {
+                      setIsFocused(true);
+                      // preventScroll: true দিলে ব্রাউজার নিচে নামবে না
+                      e.target.focus({ preventScroll: true });
+                    }}
                     onBlur={() => setIsFocused(false)}
                     spellCheck="false"
                     autoComplete="off"
-                    autoFocus={false} 
                   />
                 )}
                 {isFocused && (
