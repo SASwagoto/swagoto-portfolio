@@ -18,24 +18,41 @@ export default function Contact() {
   const [history, setHistory] = useState(initialHistory);
   const [input, setInput] = useState("");
   const [mailStep, setMailStep] = useState(0); 
-  const [formData, setFormData] = useState({ name: "", email: "", message: "" });
+  const [formData, setFormData] = useState({ name: "", email: "" });
   const [isFocused, setIsFocused] = useState(false);
+  const [showInput, setShowInput] = useState(false);
   
   const scrollRef = useRef(null);
   const inputRef = useRef(null);
 
   useEffect(() => {
-    // ১. রিফ্রেশ দিলে একদম টপে থাকবে, আগের পজিশন মনে রাখবে না
+
     if ('scrollRestoration' in window.history) {
       window.history.scrollRestoration = 'manual';
     }
     window.scrollTo(0, 0);
+
+
+    const timer = setTimeout(() => {
+      setShowInput(true);
+    }, 5000); 
+
+    return () => clearTimeout(timer);
   }, []);
 
   useEffect(() => {
-    // শুধু টার্মিনালের ভেতরে স্ক্রল মেইনটেইন করবে
-    scrollRef.current?.scrollIntoView({ behavior: "smooth", block: "nearest" });
+    if (history.length > 2) {
+      scrollRef.current?.scrollIntoView({ behavior: "smooth", block: "nearest" });
+    }
   }, [history]);
+
+
+  const handleTerminalClick = () => {
+    if (!showInput) setShowInput(true);
+    setTimeout(() => {
+        inputRef.current?.focus({ preventScroll: true });
+    }, 10);
+  };
 
   const handleCommand = (e) => {
     if (e.key === "Enter") {
@@ -86,13 +103,13 @@ export default function Contact() {
       });
 
       setMailStep(0);
-      setFormData({ name: "", email: "", message: "" });
+      setFormData({ name: "", email: "" });
     }
     setHistory(newHistory);
   };
 
   return (
-    <section id="contact-section" className="relative bg-[#050505] py-24 px-6 min-h-[80vh] flex flex-col justify-center border-t border-white/5 overflow-hidden">
+    <section className="relative bg-[#050505] py-24 px-6 min-h-[80vh] flex flex-col justify-center border-t border-white/5 overflow-hidden">
       <div className="max-w-6xl mx-auto w-full">
         <div className="mb-12 space-y-1 relative group text-center md:text-left">
           <h2 className="absolute -top-10 left-1/2 -translate-x-1/2 w-full text-7xl md:text-[140px] font-black text-white/[0.01] pointer-events-none select-none uppercase">CONNECT</h2>
@@ -103,10 +120,10 @@ export default function Contact() {
         </div>
 
         <div 
-          onClick={() => inputRef.current?.focus({ preventScroll: true })} 
+          onClick={handleTerminalClick} 
           className="max-w-4xl mx-auto w-full bg-black border border-white/10 rounded-sm shadow-2xl flex flex-col h-[400px] md:h-[450px] cursor-text overflow-hidden"
         >
-          <div className="bg-white/5 px-4 py-2 border-b border-white/10 flex items-center justify-between font-mono text-[9px] text-white/30 uppercase">
+          <div className="bg-white/5 px-4 py-2 border-b border-white/10 flex items-center justify-between font-mono text-[9px] text-white/30 uppercase tracking-widest">
             <div className="flex gap-2">
               <div className="w-2.5 h-2.5 rounded-full bg-red-500/20" />
               <div className="w-2.5 h-2.5 rounded-full bg-yellow-500/20" />
@@ -125,23 +142,25 @@ export default function Contact() {
             
             <div className="flex items-center">
               <span className="text-white/30 mr-2 shrink-0">$ root ~ </span>
-              <div className="relative flex-1">
-                <input
-                  ref={inputRef}
-                  type="text"
-                  autoFocus={false} // অটোফোকাস টোটালি অফ
-                  className="bg-transparent border-none outline-none text-white font-mono w-full caret-transparent"
-                  value={input}
-                  onChange={(e) => setInput(e.target.value)}
-                  onKeyDown={handleCommand}
-                  onFocus={(e) => {
-                    setIsFocused(true);
-                    e.target.focus({ preventScroll: true }); // জোর করে স্ক্রল আটকানো
-                  }}
-                  onBlur={() => setIsFocused(false)}
-                  spellCheck="false"
-                  autoComplete="off"
-                />
+              <div className="relative flex-1 min-h-[1.2em]">
+                {showInput && (
+                  <input
+                    ref={inputRef}
+                    type="text"
+                    autoFocus={false}
+                    className="bg-transparent border-none outline-none text-white font-mono w-full caret-transparent"
+                    value={input}
+                    onChange={(e) => setInput(e.target.value)}
+                    onKeyDown={handleCommand}
+                    onFocus={(e) => {
+                      setIsFocused(true);
+                      e.target.focus({ preventScroll: true });
+                    }}
+                    onBlur={() => setIsFocused(false)}
+                    spellCheck="false"
+                    autoComplete="off"
+                  />
+                )}
                 {isFocused && (
                   <div 
                     className="absolute top-0 h-[1.2em] w-[0.6em] bg-green-500/80 animate-pulse pointer-events-none"
