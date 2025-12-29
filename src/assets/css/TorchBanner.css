@@ -1,0 +1,97 @@
+.torch-banner {
+  position: relative;
+  width: 100%;
+  height: 100vh;
+  aspect-ratio: 16 / 9;
+  background-image: url("/banner.jpg");
+  background-repeat: no-repeat;
+  background-size: 100% 100%;
+  background-position: center;
+  background-color: #000;
+  overflow: hidden;
+  --x: -100%;
+  --y: -100%;
+  --spotlight-opacity: 0;
+  cursor: none;
+  touch-action: none;
+}
+
+.torch-overlay {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  z-index: 2;
+  background: radial-gradient(
+    circle 300px at var(--x) var(--y), 
+    rgba(0,0,0,0) 0px,        
+    rgba(0,0,0,0) 150px,     
+    rgba(0,0,0,1) 250px
+  );
+}
+
+.text-container {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 3;
+  pointer-events: none;
+  
+  -webkit-mask-image: radial-gradient(
+    circle 300px at var(--x) var(--y), 
+    transparent 0px, 
+    transparent 150px, 
+    black 250px
+  );
+  mask-image: radial-gradient(
+    circle 300px at var(--x) var(--y), 
+    transparent 0px,
+    transparent 150px, 
+    black 250px
+  );
+}
+
+.banner-text {
+  color: white;
+  font-size: 4.5rem;
+  font-weight: 800;
+  text-align: center;
+  text-transform: uppercase;
+  width: 80%;
+  line-height: 1.1;
+  font-family: 'Inter', sans-serif; 
+  background: linear-gradient(to bottom, #ffffff, #a1a1a1);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  opacity: 0.9;
+}
+
+@media (max-width: 768px) {
+  .torch-banner { height: 300px; aspect-ratio: auto; background-size: cover; }
+  .banner-text { font-size: 2rem; }
+  
+  .torch-overlay {
+    background: radial-gradient(
+      circle 120px at var(--x) var(--y), 
+      rgba(0,0,0,0) 0px, 
+      rgba(0,0,0,0) 90px,    
+      rgba(0,0,0,1) 120px
+    );
+  }
+
+  .text-container {
+    -webkit-mask-image: radial-gradient(
+      circle 120px at var(--x) var(--y), 
+      transparent 0px, 
+      transparent 90px,      
+      black 120px
+    );
+    mask-image: radial-gradient(
+      circle 120px at var(--x) var(--y), 
+      transparent 0px,
+      transparent 90px, 
+      black 120px
+    );
+  }
+}

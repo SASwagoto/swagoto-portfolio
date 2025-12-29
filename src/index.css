@@ -1,0 +1,11 @@
+@import "tailwindcss";
+
+/* এটি আপনার মেইন CSS ফাইলে বসান */
+html {
+  scroll-snap-type: y mandatory;
+  scroll-behavior: smooth;
+}
+
+/* যদি আপনি চান স্ক্রল করতে খুব বেশি বাধা না আসুক, 
+   তবে 'mandatory' এর বদলে 'proximity' ব্যবহার করতে পারেন */
+/* scroll-snap-type: y proximity; */
