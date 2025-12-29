@@ -179,7 +179,7 @@ export default function Contact() {
             <span>ROOT@SWAGOTO</span>
           </div>
 
-          <div className="flex-1 overflow-y-auto p-6 font-mono text-xs md:text-sm space-y-3 scrollbar-hide">
+          <div className="flex-1 overflow-y-auto p-6 font-mono text-xs md:text-sm scrollbar-hide">
             {history.map((line, i) => (
               <div
                 key={i}
