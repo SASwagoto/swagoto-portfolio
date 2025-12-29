@@ -129,7 +129,7 @@ export default function Contact() {
               <div className="w-2.5 h-2.5 rounded-full bg-yellow-500/20" />
               <div className="w-2.5 h-2.5 rounded-full bg-green-500/20" />
             </div>
-            <span>ROOT@SHAWON_CORE</span>
+            <span>ROOT@SWAGOTO</span>
           </div>
 
           <div className="flex-1 overflow-y-auto p-6 font-mono text-xs md:text-sm space-y-3 scrollbar-hide">
