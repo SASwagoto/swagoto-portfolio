@@ -97,9 +97,9 @@ export default function AboutMe() {
                 THE ARCHITECT OF THE CORE
               </h2>
               <div className="flex flex-col md:flex-row items-center justify-center md:justify-start gap-3 pt-2">
-                <h3 className="text-white font-mono text-base md:text-xl tracking-[4px] md:tracking-[8px] uppercase opacity-90">
+                <h1 className="text-white font-mono text-base md:text-xl tracking-[4px] md:tracking-[8px] uppercase opacity-90">
                   SHAWON AHMED SWAGOTO
-                </h3>
+                </h1>
                 <div className="h-px w-16 bg-white/20 block" />
               </div>
             </div>

@@ -38,9 +38,9 @@ export default function TorchBanner() {
       
       <div className="text-container">
         <div className="banner-text space-y-3">
-          <h1 className="text-2xl md:text-6xl font-extrabold text-white uppercase mb-4 leading-none tracking-[5px]">
+          <h2 className="text-2xl md:text-6xl font-extrabold text-white uppercase mb-4 leading-none tracking-[5px]">
             The strength is in what stays unseen.
-          </h1>
+          </h2>
           <p className="font-mono text-center md:text-lg text-gray-500 text-xs">
             “Complexity inspires solutions, creativity drives design, and professionalism ensures they last.”
           </p>
