@@ -24,7 +24,7 @@ const ProjectTile = ({ title, category, icon, tech, isVisible }) => (
           {category}
         </span>
       </div>
-      <h3 className="text-white text-lg md:text-xl font-black uppercase tracking-tight leading-tight transition-transform duration-300">
+      <h3 className="text-white text-lg md:text-xl font-black uppercase tracking-[5px] leading-tight transition-transform duration-300">
         {title}
       </h3>
     </div>
