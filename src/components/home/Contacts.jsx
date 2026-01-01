@@ -2,8 +2,8 @@ import React, { useState, useEffect, useRef } from "react";
 import emailjs from "@emailjs/browser";
 
 const commands = {
-  help: "AVAILABLE_COMMANDS: [about, skills, projects, contact, mail, clear]",
-  about: "SHAWON AHMED SWAGOTO: Backend Architect & Core System Developer.",
+  help: "AVAILABLE_COMMANDS: [whoami, skills, projects, contact, mail, clear]",
+  whoami: "SHAWON AHMED SWAGOTO: Backend Architect & Core System Developer.",
   skills: "STACK: Laravel, PHP, MySQL, Redis, Docker, System Design.",
   projects: "PORTFOLIO: SaaS Ecosystems, Enterprise eCommerce, ERP Solutions.",
   contact:
